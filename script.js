@@ -107,19 +107,22 @@ document.querySelector(".check").addEventListener("click", function () {
 
 //DOM also includes CSS styles
 
-const secretNumber = Math.trunc(Math.random() * 20) + 1;
-document.querySelector(".number").textContent = secretNumber;
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
 
 let score = 20;
 
 document.querySelector(".check").addEventListener("click", function () {
   const guess = Number(document.querySelector(".guess").value);
+
   //when there is no input
   if (!guess) {
     document.querySelector(".message").textContent = "No number.";
+
     // when player wins
   } else if (guess === secretNumber) {
     document.querySelector(".message").textContent = "Correct number!";
+    document.querySelector(".number").textContent = secretNumber;
+
     document.querySelector("body").style.backgroundColor = "#60b347"; //in JS properties with multiple words - adapt the camelCase notation//value is specifid in string
     document.querySelector(".number").style.width = "30rem"; //again value is in string which contains the number + unit
 
@@ -145,4 +148,29 @@ document.querySelector(".check").addEventListener("click", function () {
       document.querySelector(".score").textContent = 0;
     }
 });
-//
+
+//Coding challenge 1
+// Implement a game reset functionality, so that the player can make a new guess!
+
+//my working solution
+// document.querySelector(".again").addEventListener("click", function () {
+//   document.querySelector("body").style.backgroundColor = "#222";
+//   document.querySelector(".number").style.width = "15rem";
+//   document.querySelector(".number").textContent = "?";
+//   document.querySelector(".score").textContent = 20;
+//   Number((document.querySelector(".guess").value = ""));
+//   secretNumber = Math.trunc(Math.random() * 20) + 1;
+// });
+
+// tutor solution
+
+document.querySelector(".again").addEventListener("click", function () {
+  score = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  document.querySelector(".message").textContent = "Start guessing...";
+  document.querySelector(".score").textContent = score;
+  document.querySelector(".number").textContent = "?";
+  document.querySelector(".guess").value = "";
+  document.querySelector(".number").style.width = "15rem";
+  document.querySelector("body").style.backgroundColor = "#222";
+});
