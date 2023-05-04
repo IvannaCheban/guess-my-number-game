@@ -1,5 +1,5 @@
 "use strict";
-console.log(document.querySelector(".message").textContent); //the query seclector is a method available on document object
+//console.log(document.querySelector(".message").textContent); //the query seclector is a method available on document object
 //the message is a class selector that we reffer to in html //this first part selects the element and then on that
 //element we can read the text content property using another dot
 //besides getting the text content we can also set the text content
@@ -27,8 +27,33 @@ console.log(document.querySelector(".message").textContent); //the query seclect
 //Selecting and manipulating elements
 
 //besides getting the text content we can also set the text content
+/*
 document.querySelector(".message").textContent = "Correct number!"; //here we are casually manipulating one of the dom nodes
 document.querySelector(".number").textContent = 13;
 document.querySelector(".score").textContent = 20;
 document.querySelector(".guess").value = 23;
 document.querySelector(".guess").value;
+*/
+//Handling click Events
+//Event is something that is happening on the page
+// for example a mouse click or a mouse moving,or key press//
+//with event listener we can wait for certain event to happen and then react to in
+
+// in order to listen to events we first must select the element where the event should happen
+/*
+document.querySelector(".check").addEventListener("click", function () {
+  //first value is action we should listen to, and second is funciton value
+  //we selected the element button check and then we used an event listener on that element to attach an event handler, and that event handler is the function argument
+  console.log(Number(document.querySelector(".guess").value));// usually we ve get an input from a ui its a stiring, so we have to convert it 
+  //we did not store the function value in the variable but passed it directly to add event listener method
+  document.querySelector(".message").textContent = "Correct number!"; //we can also have some DoM manipulation here;
+});
+*/
+document.querySelector(".check").addEventListener("click", function () {
+  const guess = Number(document.querySelector(".guess").value);
+  //implementing game logic
+  if (!guess) {
+    //using negation operatior to invert boolean value from false to true(0 is falsy and we use !operatior to convert it to true)
+    document.querySelector(".message").textContent = "No number."; //first option is always sugests that there is no input
+  }
+});
