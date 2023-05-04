@@ -49,6 +49,8 @@ document.querySelector(".check").addEventListener("click", function () {
   document.querySelector(".message").textContent = "Correct number!"; //we can also have some DoM manipulation here;
 });
 */
+/*
+
 document.querySelector(".check").addEventListener("click", function () {
   const guess = Number(document.querySelector(".guess").value);
   //implementing game logic
@@ -57,3 +59,44 @@ document.querySelector(".check").addEventListener("click", function () {
     document.querySelector(".message").textContent = "No number."; //first option is always sugests that there is no input
   }
 });
+*/
+//Implementing game logic (how the game works);
+// the second thing: we have to define a secret number and we have to do it on the global scale(outside of the handler function) because we want that secret number to be defined once - when the game starts (we dont want to get a new secret number on each click)
+
+const secretNumber = Math.trunc(Math.random() * 20) + 1; //math is a default js object and it has "random" method; whenever you run it, it gives you a new number and its always different from the one before
+//trunc removes decimal and it rounds the random to 19 so we need to add 1 to have 20
+
+document.querySelector(".number").textContent = secretNumber; //displaying the number variable(just on development stage)
+
+let score = 20; //part of an aplication state //score value that is going to decrease with a wrong guess
+
+//It is always good to store a data in a variable and not just rely on DOM
+
+document.querySelector(".check").addEventListener("click", function () {
+  const guess = Number(document.querySelector(".guess").value);
+  if (!guess) {
+    document.querySelector(".message").textContent = "No number.";
+  } else if (guess === secretNumber) {
+    document.querySelector(".message").textContent = "Correct number!";
+  } else if (guess > secretNumber) {
+    if (score > 1) {
+      //if the score >0 we still have 1 chance but we should'nt so it 1 then
+      //adding a condition for finite game
+      document.querySelector(".message").textContent = "Too high!";
+      score--; //decreasing value of score by 1
+      document.querySelector(".score").textContent = score;
+    } else {
+      document.querySelector(".message").textContent = "You lost the game.";
+      document.querySelector(".score").textContent = 0;
+    }
+  } else if (guess < secretNumber)
+    if (score > 1) {
+      document.querySelector(".message").textContent = "Too low!";
+      score--;
+      document.querySelector(".score").textContent = score;
+    } else {
+      document.querySelector(".message").textContent = "You lost the game.";
+      document.querySelector(".score").textContent = 0;
+    }
+});
+//Aplication state - all the data that is relevant to the aplication
