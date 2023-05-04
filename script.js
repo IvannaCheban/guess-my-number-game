@@ -62,7 +62,7 @@ document.querySelector(".check").addEventListener("click", function () {
 */
 //Implementing game logic (how the game works);
 // the second thing: we have to define a secret number and we have to do it on the global scale(outside of the handler function) because we want that secret number to be defined once - when the game starts (we dont want to get a new secret number on each click)
-
+/*
 const secretNumber = Math.trunc(Math.random() * 20) + 1; //math is a default js object and it has "random" method; whenever you run it, it gives you a new number and its always different from the one before
 //trunc removes decimal and it rounds the random to 19 so we need to add 1 to have 20
 
@@ -99,4 +99,50 @@ document.querySelector(".check").addEventListener("click", function () {
       document.querySelector(".score").textContent = 0;
     }
 });
-//Aplication state - all the data that is relevant to the aplication
+*/
+
+//aplication state - all the data that is relevant to the aplication
+
+//Manipulating CSS styles
+
+//DOM also includes CSS styles
+
+const secretNumber = Math.trunc(Math.random() * 20) + 1;
+document.querySelector(".number").textContent = secretNumber;
+
+let score = 20;
+
+document.querySelector(".check").addEventListener("click", function () {
+  const guess = Number(document.querySelector(".guess").value);
+  //when there is no input
+  if (!guess) {
+    document.querySelector(".message").textContent = "No number.";
+    // when player wins
+  } else if (guess === secretNumber) {
+    document.querySelector(".message").textContent = "Correct number!";
+    document.querySelector("body").style.backgroundColor = "#60b347"; //in JS properties with multiple words - adapt the camelCase notation//value is specifid in string
+    document.querySelector(".number").style.width = "30rem"; //again value is in string which contains the number + unit
+
+    //when guess is too high
+  } else if (guess > secretNumber) {
+    if (score > 1) {
+      document.querySelector(".message").textContent = "Too high!";
+      score--;
+      document.querySelector(".score").textContent = score;
+    } else {
+      document.querySelector(".message").textContent = "You lost the game.";
+      document.querySelector(".score").textContent = 0;
+    }
+
+    //when guess is too low
+  } else if (guess < secretNumber)
+    if (score > 1) {
+      document.querySelector(".message").textContent = "Too low!";
+      score--;
+      document.querySelector(".score").textContent = score;
+    } else {
+      document.querySelector(".message").textContent = "You lost the game.";
+      document.querySelector(".score").textContent = 0;
+    }
+});
+//
