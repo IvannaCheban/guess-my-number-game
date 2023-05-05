@@ -176,22 +176,27 @@ document.querySelector(".again").addEventListener("click", function () {
 });
 */
 //Implementing Higscores
+/*
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 
 let score = 20;
 
 let highScore = 0;
 
+const displayMessage = function (message) {
+  document.querySelector(".message").textContent = message; // here we take code line and refactoring it to a single function which we can call when needed; here we will insert the message which we would like to display as a function argument when calling it
+};
+
 document.querySelector(".check").addEventListener("click", function () {
   const guess = Number(document.querySelector(".guess").value);
 
   //when there is no input
   if (!guess) {
-    document.querySelector(".message").textContent = "No number.";
+    displayMessage("No number.");
 
     // when player wins
   } else if (guess === secretNumber) {
-    document.querySelector(".message").textContent = "Correct number!";
+    displayMessage("Correct number!");
     document.querySelector(".number").textContent = secretNumber;
 
     document.querySelector("body").style.backgroundColor = "#60b347";
@@ -202,32 +207,104 @@ document.querySelector(".check").addEventListener("click", function () {
       document.querySelector(".highscore").textContent = highScore;
     }
 
-    //when guess is too high
-  } else if (guess > secretNumber) {
+    //when guess is wrong
+  } else if (guess !== secretNumber) {
     if (score > 1) {
-      document.querySelector(".message").textContent = "Too high!";
+      displayMessage(guess > secretNumber ? "Too high!" : "Too low!"); //here we pass terenary operator as a funciton argument
       score--;
       document.querySelector(".score").textContent = score;
     } else {
-      document.querySelector(".message").textContent = "You lost the game.";
+      displayMessage("You lost the game.");
       document.querySelector(".score").textContent = 0;
     }
+  }
 
-    //when guess is too low
-  } else if (guess < secretNumber)
-    if (score > 1) {
-      document.querySelector(".message").textContent = "Too low!";
-      score--;
-      document.querySelector(".score").textContent = score;
-    } else {
-      document.querySelector(".message").textContent = "You lost the game.";
-      document.querySelector(".score").textContent = 0;
-    }
+  //   //when guess is too high
+  //   else if (guess > secretNumber) {
+  //     if (score > 1) {
+  //       document.querySelector(".message").textContent = "Too high!";
+  //       score--;
+  //       document.querySelector(".score").textContent = score;
+  //     } else {
+  //       document.querySelector(".message").textContent = "You lost the game.";
+  //       document.querySelector(".score").textContent = 0;
+  //     }
+
+  //     //when guess is too low
+  //   } else if (guess < secretNumber)
+  //     if (score > 1) {
+  //       document.querySelector(".message").textContent = "Too low!";
+  //       score--;
+  //       document.querySelector(".score").textContent = score;
+  //     } else {
+  //       document.querySelector(".message").textContent = "You lost the game.";
+  //       document.querySelector(".score").textContent = 0;
+  //     }
 });
 document.querySelector(".again").addEventListener("click", function () {
   score = 20;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
-  document.querySelector(".message").textContent = "Start guessing...";
+  displayMessage("Start guessing...");
+  document.querySelector(".score").textContent = score;
+  document.querySelector(".number").textContent = "?";
+  document.querySelector(".guess").value = "";
+  document.querySelector(".number").style.width = "15rem";
+  document.querySelector("body").style.backgroundColor = "#222";
+});
+
+*/
+//
+//Refactoting the code, the DRY principle;
+//Whenever we have to change the code we have to change it in multiple places, so having a duplicate code might turn to be a bad idea on the later
+//stages of the project, but having it in the begging is good because its easier to think without having to restrain yourself about it, it gives you space for creativity and focusing on making it work.
+//Refactoring the code means change the code wihtout changing project functionality
+
+//If we have multiple long repetative lines we can make them into a function and then call it when we need it
+
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
+let score = 20;
+let highScore = 0;
+
+const displayMessage = function (message) {
+  document.querySelector(".message").textContent = message;
+};
+
+document.querySelector(".check").addEventListener("click", function () {
+  const guess = Number(document.querySelector(".guess").value);
+
+  //when there is no input
+  if (!guess) {
+    displayMessage("No number.");
+
+    // when player wins
+  } else if (guess === secretNumber) {
+    displayMessage("Correct number!");
+    document.querySelector(".number").textContent = secretNumber;
+
+    document.querySelector("body").style.backgroundColor = "#60b347";
+    document.querySelector(".number").style.width = "30rem";
+    if (score > highScore) {
+      highScore = score;
+      document.querySelector(".highscore").textContent = highScore;
+    }
+
+    //when guess is wrong
+  } else if (guess !== secretNumber) {
+    if (score > 1) {
+      displayMessage(guess > secretNumber ? "Too high!" : "Too low!");
+      score--;
+      document.querySelector(".score").textContent = score;
+    } else {
+      displayMessage("You lost the game.");
+      document.querySelector(".score").textContent = 0;
+    }
+  }
+});
+//
+document.querySelector(".again").addEventListener("click", function () {
+  score = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  displayMessage("Start guessing...");
   document.querySelector(".score").textContent = score;
   document.querySelector(".number").textContent = "?";
   document.querySelector(".guess").value = "";
