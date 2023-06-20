@@ -1,3 +1,4 @@
+# https://ivannacheban.github.io/guess-my-number-game/
 This project is based on Javscript learning course.
 Link to it on Udemy www.udemy.com/course/the-complete-javascript-course/learn/lecture/22648403#overview
 Its aim is to get a general idea about how you can create a game using a browser and some javascript.
@@ -5,4 +6,4 @@ This project consist of steps that need to be taken in order to be able to compl
 
 I would also like to thank Johan Shmedtmann for amazing curiculum that helps me to obtain crutial information to become a developer.
 
-https://ivannacheban.github.io/guess-my-number-game/
+
